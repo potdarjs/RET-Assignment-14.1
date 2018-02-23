@@ -70,6 +70,16 @@ corr  # good corelations with target variable
 corrplot.mixed(cor(train[,c(30:34)]))
 # Total comments are strongly correlated to correlated with cc4(comments in first 24 hrs of publish time) and
 # cc3(comments in last 48 to last 24 hours relative to base date/time) 
+
+df <- train
+melt_df <- melt(df)
+
+# Distribution of all the Variables - Histogram
+ggplot(melt_df, aes(x=value, fill = variable))+
+  geom_histogram(bins=10, color = "Blue")+
+  facet_wrap(~variable, scales = 'free_x')
+df <- log(train[1:39])
+
 par(mfrow=c(1,1))
 # c. Visualize the dataset and make inferences from that
 barplot(table(train$target, train$pubday), col = heat.colors(7),
